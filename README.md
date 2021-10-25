@@ -30,6 +30,8 @@ The server accepts three inputs:
 
 The application generally uses less than 75M of RAM, but you likely want to give it a bit more to give the garbage collector time to catch up when the app is under load.
 
+Pre-compiled binaries are available in the [dist/](https://github.com/cudneys/srsre-code-challenge/tree/main/dist) directory.  
+
 ## Deployment
 Your deployment manifests must be placed into a directory named "kubernetes" in the root of your repo.  
 
