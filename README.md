@@ -1,6 +1,6 @@
 # Sr SRE Code Challenge
 
-This repo contains the source code and binaries for a REST API that generates and validates papsswords.  The server needs to be packaged in a Docker container and deployed in Kubernetes >= 1.20 with Istio >= 1.10.
+This repo contains the source code and binaries for a REST API that generates and validates passwords.  The server needs to be packaged in a Docker container and deployed in Kubernetes >= 1.20 with Istio >= 1.10.
 
 # Steps
 1. Clone this repo
@@ -28,7 +28,7 @@ The server accepts three inputs:
   * Env Var: GIN_MODE
   * Values: "release" or "debug" (Defaults to "debug")
 
-The application generally uses less than 75M of RAM, but you likely want to give it a bit more to give the garbage collector time to catch up when the app is under load.
+The application generally uses less than 75M of RAM, but you likely want to give it a bit more so the garbage collector time to catch up when the app is under load.
 
 Pre-compiled binaries are available in the [dist/](https://github.com/cudneys/srsre-code-challenge/tree/main/dist) directory.  
 
