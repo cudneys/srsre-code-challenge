@@ -1,0 +1,173 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Password Generator API",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/generate": {
+            "get": {
+                "description": "Generate Passwoed",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Password"
+                ],
+                "summary": "Generates Passwords",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Length of the password",
+                        "name": "length",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of digits (Default: Length/4)",
+                        "name": "digits",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of symbols (Default: Length/4)",
+                        "name": "symbols",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Allow repeated chars (Default: true)",
+                        "name": "allow_repeat",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.PasswordResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.PasswordError"
+                        }
+                    }
+                }
+            }
+        },
+        "/validate": {
+            "get": {
+                "description": "Validates Passwoed",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Password"
+                ],
+                "summary": "Validates Passwords",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The password to validate",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ValidationResponse"
+                        }
+                    },
+                    "499": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ValidationResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "cmd.PasswordError": {
+            "type": "object",
+            "properties": {
+                "allow_repeat": {
+                    "type": "boolean"
+                },
+                "digits": {
+                    "type": "integer"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "length": {
+                    "type": "integer"
+                },
+                "symbols": {
+                    "type": "integer"
+                }
+            }
+        },
+        "cmd.PasswordResponse": {
+            "type": "object",
+            "properties": {
+                "allow_repeat": {
+                    "type": "boolean"
+                },
+                "digits": {
+                    "type": "integer"
+                },
+                "generated_in_ns": {
+                    "type": "integer"
+                },
+                "length": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "sha_256_sum": {
+                    "type": "string"
+                },
+                "sha_512_sum": {
+                    "type": "string"
+                },
+                "symbols": {
+                    "type": "integer"
+                }
+            }
+        },
+        "cmd.ValidationResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "validates": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

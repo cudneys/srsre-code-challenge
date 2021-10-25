@@ -1,0 +1,113 @@
+definitions:
+  cmd.PasswordError:
+    properties:
+      allow_repeat:
+        type: boolean
+      digits:
+        type: integer
+      error:
+        type: string
+      length:
+        type: integer
+      symbols:
+        type: integer
+    type: object
+  cmd.PasswordResponse:
+    properties:
+      allow_repeat:
+        type: boolean
+      digits:
+        type: integer
+      generated_in_ns:
+        type: integer
+      length:
+        type: integer
+      password:
+        type: string
+      sha_256_sum:
+        type: string
+      sha_512_sum:
+        type: string
+      symbols:
+        type: integer
+    type: object
+  cmd.ValidationResponse:
+    properties:
+      error:
+        type: string
+      password:
+        type: string
+      validates:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Password Generator API
+  version: "1.0"
+paths:
+  /generate:
+    get:
+      consumes:
+      - application/json
+      description: Generate Passwoed
+      parameters:
+      - description: Length of the password
+        in: query
+        name: length
+        required: true
+        type: integer
+      - description: 'Number of digits (Default: Length/4)'
+        in: query
+        name: digits
+        type: integer
+      - description: 'Number of symbols (Default: Length/4)'
+        in: query
+        name: symbols
+        type: integer
+      - description: 'Allow repeated chars (Default: true)'
+        in: query
+        name: allow_repeat
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.PasswordResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.PasswordError'
+      summary: Generates Passwords
+      tags:
+      - Password
+  /validate:
+    get:
+      consumes:
+      - application/json
+      description: Validates Passwoed
+      parameters:
+      - description: The password to validate
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.ValidationResponse'
+        "499":
+          description: ""
+          schema:
+            $ref: '#/definitions/cmd.ValidationResponse'
+      summary: Validates Passwords
+      tags:
+      - Password
+swagger: "2.0"
